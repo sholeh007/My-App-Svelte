@@ -41,9 +41,7 @@
 		meets = [...meets, newMeets];
 		addButton = false;
 	};
-	(function () {
-		console.log(meets);
-	})();
+
 	const toggleFavorite = (event) => {
 		const id = event.detail;
 		const updateMeetup = { ...meets.find((meet) => meet.id === id) };
