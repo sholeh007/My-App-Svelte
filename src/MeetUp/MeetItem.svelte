@@ -63,7 +63,7 @@
     </h1>
     <address>{address}</address>
   </header>
-  <div class="image"><img src={imageUrl} alt={title} /></div>
+  <div class="image"><img src={imageUrl} loading="lazy" alt={title} /></div>
   <div class="content">
     <p>{description}</p>
   </div>

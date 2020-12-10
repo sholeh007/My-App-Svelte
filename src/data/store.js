@@ -20,6 +20,7 @@ const dataMeet = writable([{
     email: "normal@test.com",
     isFavorite: false,
   },
+
 ])
 
 const customMeetupsStore = {
