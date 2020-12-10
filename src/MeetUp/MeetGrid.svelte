@@ -28,7 +28,6 @@
       address={meet.address}
       contactEmail={meet.email}
       description={meet.description}
-      isFavorite={meet.isFavorite}
-      on:toggleFavorite />
+      isFavorite={meet.isFavorite} />
   {/each}
 </section>

@@ -10,17 +10,8 @@
 		addButton = !addButton;
 	};
 
-	const addMeet = (event) => {
-		let newMeets = {
-			...event.detail,
-		};
-		meetup.addMeetup(newMeets);
+	const addMeet = () => {
 		addButton = false;
-	};
-
-	const toggleFavorite = (event) => {
-		const id = event.detail;
-		meetup.toggleFavorite(id);
 	};
 
 	const closeModal = () => {
@@ -45,5 +36,5 @@
 	{#if addButton}
 		<EditMeetup on:addMeet={addMeet} on:close={closeModal} />
 	{/if}
-	<MeetGrid meets={$meetup} on:toggleFavorite={toggleFavorite} />
+	<MeetGrid meets={$meetup} />
 </main>

@@ -20,15 +20,15 @@ const dataMeet = writable([{
     email: "normal@test.com",
     isFavorite: false,
   },
-
-])
+]);
 
 const customMeetupsStore = {
   subscribe: dataMeet.subscribe,
   addMeetup: (meetupData) => {
     const newMeetup = {
       id: Math.random(),
-      ...meetupData
+      ...meetupData,
+      isFavorite: false
     };
     dataMeet.update(items => {
       return [newMeetup, ...items];
