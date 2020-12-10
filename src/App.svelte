@@ -4,8 +4,12 @@
 	import MeetGrid from "./MeetUp/MeetGrid.svelte";
 	import EditMeetup from "./MeetUp/EditMeetup.svelte";
 	import Button from "./UI/Button.svelte";
+	import MeetupDetail from "./MeetUp/MeetupDetail.svelte";
 
 	let addButton = false;
+	let page = "overview";
+	let pageData = {};
+
 	const toggleAddButton = () => {
 		addButton = !addButton;
 	};
@@ -16,6 +20,16 @@
 
 	const closeModal = () => {
 		addButton = false;
+	};
+
+	const showDetail = (event) => {
+		page = "detail";
+		pageData.id = event.detail;
+	};
+
+	const closeDetail = () => {
+		page = "overview";
+		pageData = {};
 	};
 </script>
 
@@ -30,11 +44,15 @@
 
 <Header />
 <main>
-	<div class="meetup-controls">
-		<Button on:click={toggleAddButton}>New Meetup</Button>
-	</div>
-	{#if addButton}
-		<EditMeetup on:addMeet={addMeet} on:close={closeModal} />
+	{#if page === 'overview'}
+		<div class="meetup-controls">
+			<Button on:click={toggleAddButton}>New Meetup</Button>
+		</div>
+		{#if addButton}
+			<EditMeetup on:addMeet={addMeet} on:close={closeModal} />
+		{/if}
+		<MeetGrid meets={$meetup} on:showDetail={showDetail} />
+	{:else}
+		<MeetupDetail id={pageData.id} on:close={closeDetail} />
 	{/if}
-	<MeetGrid meets={$meetup} />
 </main>
