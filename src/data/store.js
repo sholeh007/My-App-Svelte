@@ -22,4 +22,29 @@ const dataMeet = writable([{
   },
 ])
 
-export default dataMeet;
+const customMeetupsStore = {
+  subscribe: dataMeet.subscribe,
+  addMeetup: (meetupData) => {
+    const newMeetup = {
+      id: Math.random(),
+      ...meetupData
+    };
+    dataMeet.update(items => {
+      return [newMeetup, ...items];
+    })
+  },
+  toggleFavorite: (id) => {
+    dataMeet.update(items => {
+      const updateMeetup = {
+        ...items.find((meet) => meet.id === id)
+      };
+      updateMeetup.isFavorite = !updateMeetup.isFavorite;
+      const meetsIndex = items.findIndex((meet) => meet.id === id);
+      const updateMeetups = [...items];
+      updateMeetups[meetsIndex] = updateMeetup;
+      return updateMeetups;
+    })
+  }
+}
+
+export default customMeetupsStore;

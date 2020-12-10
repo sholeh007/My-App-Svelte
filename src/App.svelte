@@ -1,5 +1,5 @@
 <script>
-	import DataMeet from "./data/store.js";
+	import meetup from "./data/store.js";
 	import Header from "./UI/Header.svelte";
 	import MeetGrid from "./MeetUp/MeetGrid.svelte";
 	import EditMeetup from "./MeetUp/EditMeetup.svelte";
@@ -12,22 +12,15 @@
 
 	const addMeet = (event) => {
 		let newMeets = {
-			id: Math.random(),
 			...event.detail,
 		};
-
-		$DataMeet = [...$DataMeet, newMeets];
+		meetup.addMeetup(newMeets);
 		addButton = false;
 	};
 
 	const toggleFavorite = (event) => {
 		const id = event.detail;
-		const updateMeetup = { ...meets.find((meet) => meet.id === id) };
-		updateMeetup.isFavorite = !updateMeetup.isFavorite;
-		const meetsIndex = meets.findIndex((meet) => meet.id === id);
-		const updateMeetups = [...meets];
-		updateMeetups[meetsIndex] = updateMeetup;
-		meets = updateMeetups;
+		meetup.toggleFavorite(id);
 	};
 
 	const closeModal = () => {
@@ -52,5 +45,5 @@
 	{#if addButton}
 		<EditMeetup on:addMeet={addMeet} on:close={closeModal} />
 	{/if}
-	<MeetGrid meets={$DataMeet} on:toggleFavorite={toggleFavorite} />
+	<MeetGrid meets={$meetup} on:toggleFavorite={toggleFavorite} />
 </main>
