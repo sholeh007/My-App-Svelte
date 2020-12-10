@@ -6,20 +6,28 @@
 	import Button from "./UI/Button.svelte";
 	import MeetupDetail from "./MeetUp/MeetupDetail.svelte";
 
-	let addButton = false;
 	let page = "overview";
 	let pageData = {};
+	let editMode = false;
+	let editId;
 
 	const toggleAddButton = () => {
-		addButton = !addButton;
+		editMode = !editMode;
 	};
 
 	const addMeet = () => {
-		addButton = false;
+		editMode = !editMode;
+		editId = null;
+	};
+
+	const editMeet = (event) => {
+		editMode = !editMode;
+		editId = event.detail;
 	};
 
 	const closeModal = () => {
-		addButton = false;
+		editMode = !editMode;
+		editId = null;
 	};
 
 	const showDetail = (event) => {
@@ -48,10 +56,13 @@
 		<div class="meetup-controls">
 			<Button on:click={toggleAddButton}>New Meetup</Button>
 		</div>
-		{#if addButton}
-			<EditMeetup on:addMeet={addMeet} on:close={closeModal} />
+		{#if editMode}
+			<EditMeetup id={editId} on:addMeet={addMeet} on:close={closeModal} />
 		{/if}
-		<MeetGrid meets={$meetup} on:showDetail={showDetail} />
+		<MeetGrid
+			meets={$meetup}
+			on:showDetail={showDetail}
+			on:editMeet={editMeet} />
 	{:else}
 		<MeetupDetail id={pageData.id} on:close={closeDetail} />
 	{/if}

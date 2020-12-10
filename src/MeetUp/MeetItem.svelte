@@ -21,6 +21,10 @@
   const handleFavorite = () => {
     meetup.toggleFavorite(id);
   };
+
+  const edit = () => {
+    dispatch("editMeet", id);
+  };
 </script>
 
 <style>
@@ -74,7 +78,7 @@
     <p>{description}</p>
   </div>
   <footer>
-    <Button typeElement="href" {contactEmail}>Contact Us</Button>
+    <Button type="button" mode="outline" on:click={edit}>Edit</Button>
     <Button type="button" on:click={detail}>Detail</Button>
     <Button
       type="button"

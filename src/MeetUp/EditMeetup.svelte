@@ -7,12 +7,25 @@
   import { isEmpty, isValidEmail, isValidUrl } from "../helper/validation.js";
 
   const dispatch = createEventDispatcher();
+  export let id = null;
   let title = "";
   let address = "";
   let imageUrl = "";
   let email = "";
   let description = "";
   let validForm = false;
+
+  if (id) {
+    const unsubscribe = meetup.subscribe((items) => {
+      const selectedMeetup = items.find((item) => item.id === id);
+      title = selectedMeetup.title;
+      imageUrl = selectedMeetup.imageUrl;
+      address = selectedMeetup.address;
+      description = selectedMeetup.description;
+      email = selectedMeetup.email;
+    });
+    unsubscribe();
+  }
 
   $: if (
     title &&
@@ -34,7 +47,11 @@
       description,
       email,
     };
-    meetup.addMeetup(newMeets);
+    if (id) {
+      meetup.updateDataMeetup(id, newMeets);
+    } else {
+      meetup.addMeetup(newMeets);
+    }
     dispatch("addMeet");
   };
 

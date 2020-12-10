@@ -44,7 +44,19 @@ const customMeetupsStore = {
       const updateMeetups = [...items];
       updateMeetups[meetsIndex] = updateMeetup;
       return updateMeetups;
-    })
+    });
+  },
+  updateDataMeetup: (id, data) => {
+    dataMeet.update(items => {
+      const meetupIndex = items.findIndex(item => item.id === id);
+      const updateMeetup = {
+        ...items[meetupIndex],
+        ...data
+      };
+      const updateMeetups = [...items];
+      updateMeetups[meetupIndex] = updateMeetup;
+      return updateMeetups;
+    });
   }
 }
 
