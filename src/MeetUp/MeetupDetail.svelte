@@ -64,7 +64,7 @@
 
 <section>
   <div class="image">
-    <img src={selectMeetup.imageUrl} alt={selectMeetup.title} loading="lazy" />
+    <img src={selectMeetup.imageUrl} alt={selectMeetup.title} />
   </div>
   <div class="content">
     <h1>{selectMeetup.title}</h1>
