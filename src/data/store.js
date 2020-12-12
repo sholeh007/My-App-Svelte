@@ -60,8 +60,7 @@ const customMeetupsStore = {
   },
   removeMeetup: (id) => {
     dataMeet.update(items => {
-      const data = items.filter(item => item.id !== id);
-      return data;
+      return items.filter(item => item.id !== id);
     })
   }
 }
