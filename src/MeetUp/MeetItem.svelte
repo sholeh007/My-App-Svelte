@@ -60,10 +60,30 @@
   .content {
     height: 4rem;
   }
+
+  .posisi-btn-remove {
+    text-align: right;
+    margin-right: 20px;
+  }
+
+  .btn-remove {
+    position: absolute;
+    cursor: pointer;
+    border: none;
+    outline-style: none;
+    background: none;
+    font-size: 30px;
+    opacity: 0.4;
+    padding: 0;
+    margin-top: -5px;
+  }
 </style>
 
 <article>
   <header>
+    <div class="posisi-btn-remove">
+      <button class="btn-remove" type="button">&times;</button>
+    </div>
     <h1>
       {title}
       {#if isFavorite}
