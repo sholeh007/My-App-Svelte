@@ -8,7 +8,6 @@
   export let title;
   export let imageUrl;
   export let description;
-  export let contactEmail;
   export let address;
   export let isFavorite;
 

@@ -26,7 +26,6 @@
       title={meet.title}
       imageUrl={meet.imageUrl}
       address={meet.address}
-      contactEmail={meet.email}
       description={meet.description}
       isFavorite={meet.isFavorite}
       on:showDetail
