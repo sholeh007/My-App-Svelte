@@ -24,6 +24,13 @@
   const edit = () => {
     dispatch("editMeet", id);
   };
+
+  const deleteMeet = () => {
+    if (confirm("Are you sure?")) {
+      return meetup.removeMeetup(id);
+    }
+    return;
+  };
 </script>
 
 <style>
@@ -82,7 +89,10 @@
 <article>
   <header>
     <div class="posisi-btn-remove">
-      <button class="btn-remove" type="button">&times;</button>
+      <button
+        class="btn-remove"
+        type="button"
+        on:click={deleteMeet}>&times;</button>
     </div>
     <h1>
       {title}

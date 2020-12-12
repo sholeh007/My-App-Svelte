@@ -57,6 +57,12 @@ const customMeetupsStore = {
       updateMeetups[meetupIndex] = updateMeetup;
       return updateMeetups;
     });
+  },
+  removeMeetup: (id) => {
+    dataMeet.update(items => {
+      const data = items.filter(item => item.id !== id);
+      return data;
+    })
   }
 }
 
