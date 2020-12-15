@@ -45,24 +45,19 @@
 	main {
 		margin-top: 1rem;
 	}
-	.meetup-controls {
-		margin: 1rem;
-	}
 </style>
 
 <Header />
 <main>
 	{#if page === 'overview'}
-		<div class="meetup-controls">
-			<Button on:click={toggleAddButton}>New Meetup</Button>
-		</div>
 		{#if editMode}
 			<EditMeetup id={editId} on:addMeet={addMeet} on:close={closeModal} />
 		{/if}
 		<MeetGrid
 			meets={$meetup}
 			on:showDetail={showDetail}
-			on:editMeet={editMeet} />
+			on:editMeet={editMeet}
+			on:add={toggleAddButton} />
 	{:else}
 		<MeetupDetail id={pageData.id} on:close={closeDetail} />
 	{/if}

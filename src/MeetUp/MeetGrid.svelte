@@ -1,9 +1,12 @@
 <script>
+  import { createEventDispatcher } from "svelte";
   import MeetItem from "./MeetItem.svelte";
   import MeetupFilter from "../MeetUp/MeetupFilter.svelte";
+  import Button from "../UI/Button.svelte";
 
   export let meets;
   let favOnly = false;
+  const dispatch = createEventDispatcher();
 
   $: filterSet = favOnly ? meets.filter((item) => item.isFavorite) : meets;
 
@@ -22,6 +25,8 @@
 
   #meetup-controls {
     margin: 1rem;
+    display: flex;
+    justify-content: space-between;
   }
 
   @media (min-width: 768px) {
@@ -33,6 +38,7 @@
 
 <section id="meetup-controls">
   <MeetupFilter on:select={setFilter} />
+  <Button on:click={() => dispatch('add')}>New Meetup</Button>
 </section>
 
 <section id="meetups">
