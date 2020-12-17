@@ -3,7 +3,6 @@
 	import Header from "./UI/Header.svelte";
 	import MeetGrid from "./MeetUp/MeetGrid.svelte";
 	import EditMeetup from "./MeetUp/EditMeetup.svelte";
-	import Button from "./UI/Button.svelte";
 	import MeetupDetail from "./MeetUp/MeetupDetail.svelte";
 
 	let page = "overview";
@@ -51,7 +50,10 @@
 <main>
 	{#if page === 'overview'}
 		{#if editMode}
-			<EditMeetup id={editId} on:addMeet={addMeet} on:close={closeModal} />
+			<EditMeetup
+				id={editId}
+				on:addMeet={addMeet}
+				on:close={closeModal} />
 		{/if}
 		<MeetGrid
 			meets={$meetup}
