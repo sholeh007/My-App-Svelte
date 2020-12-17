@@ -50,6 +50,28 @@
     if (id) {
       meetup.updateDataMeetup(id, newMeets);
     } else {
+      fetch(
+        "https://app-svelte-test-default-rtdb.firebaseio.com/meetups.json",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...newMeets, isFavorite: false }),
+        }
+      )
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Failed!");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          throw new err();
+        });
       meetup.addMeetup(newMeets);
     }
     dispatch("addMeet");
