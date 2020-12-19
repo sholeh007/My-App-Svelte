@@ -1,5 +1,6 @@
 <script>
   import meetup from "../data/store.js";
+  import dataApi from "../api/meetApi.js";
   import { createEventDispatcher } from "svelte";
   import TextInput from "../UI/TextInput.svelte";
   import Button from "../UI/Button.svelte";
@@ -15,7 +16,7 @@
   let description = "";
   let validForm = false;
 
-  if (id) {
+  $: if (id) {
     const unsubscribe = meetup.subscribe((items) => {
       const selectedMeetup = items.find((item) => item.id === id);
       title = selectedMeetup.title;
@@ -39,7 +40,7 @@
     validForm = false;
   }
 
-  const handleForm = () => {
+  const handleForm = async () => {
     const newMeets = {
       title,
       imageUrl,
@@ -50,28 +51,17 @@
     if (id) {
       meetup.updateDataMeetup(id, newMeets);
     } else {
-      fetch(
-        "https://app-svelte-test-default-rtdb.firebaseio.com/meetups.json",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...newMeets, isFavorite: false }),
-        }
-      )
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("Failed!");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          meetup.addMeetup({ ...newMeets, isFavorite: false, id: data.name });
-        })
-        .catch((err) => {
-          throw new err();
-        });
+      const url =
+        "https://app-svelte-test-default-rtdb.firebaseio.com/meets.json";
+      const setting = {
+        method: "POST",
+        header: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...newMeets, isFavorite: false }),
+      };
+      const data = await dataApi.postData(url, setting);
+      meetup.addMeetup({ ...newMeets, isFavorite: false, id: data.name });
     }
     dispatch("addMeet");
   };
