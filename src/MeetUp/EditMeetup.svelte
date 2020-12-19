@@ -67,12 +67,11 @@
           return res.json();
         })
         .then((data) => {
-          console.log(data);
+          meetup.addMeetup({ ...newMeets, isFavorite: false, id: data.name });
         })
         .catch((err) => {
           throw new err();
         });
-      meetup.addMeetup(newMeets);
     }
     dispatch("addMeet");
   };
