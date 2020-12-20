@@ -1,4 +1,6 @@
 <script>
+	import { onMount } from "svelte";
+	import gettingData from "./api/meetApi.js";
 	import meetup from "./data/store.js";
 	import Header from "./UI/Header.svelte";
 	import MeetGrid from "./MeetUp/MeetGrid.svelte";
@@ -9,6 +11,23 @@
 	let pageData = {};
 	let editMode = false;
 	let editId;
+
+	// get data api
+	onMount(async () => {
+		const url =
+			"https://app-svelte-test-default-rtdb.firebaseio.com/meets.json";
+		const data = await gettingData.getData(url);
+		const loadDataMeetup = [];
+
+		for (const key in data) {
+			loadDataMeetup.push({
+				...data[key],
+				id: key,
+			});
+		}
+		meetup.getMeetup(loadDataMeetup);
+		console.log(loadDataMeetup);
+	});
 
 	const toggleAddButton = () => {
 		editMode = !editMode;
@@ -50,10 +69,7 @@
 <main>
 	{#if page === 'overview'}
 		{#if editMode}
-			<EditMeetup
-				id={editId}
-				on:addMeet={addMeet}
-				on:close={closeModal} />
+			<EditMeetup id={editId} on:addMeet={addMeet} on:close={closeModal} />
 		{/if}
 		<MeetGrid
 			meets={$meetup}
