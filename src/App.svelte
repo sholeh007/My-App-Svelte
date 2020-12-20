@@ -6,11 +6,13 @@
 	import MeetGrid from "./MeetUp/MeetGrid.svelte";
 	import EditMeetup from "./MeetUp/EditMeetup.svelte";
 	import MeetupDetail from "./MeetUp/MeetupDetail.svelte";
+	import Spinner from "./UI/Spinner.svelte";
 
 	let page = "overview";
 	let pageData = {};
 	let editMode = false;
 	let editId;
+	let isLoading = true;
 
 	// get data api
 	onMount(async () => {
@@ -25,8 +27,10 @@
 				id: key,
 			});
 		}
-		meetup.getMeetup(loadDataMeetup);
-		console.log(loadDataMeetup);
+		setTimeout(() => {
+			isLoading = false;
+			meetup.getMeetup(loadDataMeetup);
+		}, 1000);
 	});
 
 	const toggleAddButton = () => {
@@ -71,11 +75,15 @@
 		{#if editMode}
 			<EditMeetup id={editId} on:addMeet={addMeet} on:close={closeModal} />
 		{/if}
-		<MeetGrid
-			meets={$meetup}
-			on:showDetail={showDetail}
-			on:editMeet={editMeet}
-			on:add={toggleAddButton} />
+		{#if isLoading}
+			<Spinner />
+		{:else}
+			<MeetGrid
+				meets={$meetup}
+				on:showDetail={showDetail}
+				on:editMeet={editMeet}
+				on:add={toggleAddButton} />
+		{/if}
 	{:else}
 		<MeetupDetail id={pageData.id} on:close={closeDetail} />
 	{/if}

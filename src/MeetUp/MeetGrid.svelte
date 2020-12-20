@@ -31,6 +31,11 @@
     justify-content: space-between;
   }
 
+  .posisi-error {
+    text-align: center;
+    font-size: 24px;
+  }
+
   @media (min-width: 768px) {
     #meetups {
       grid-template-columns: repeat(2, 1fr);
@@ -43,6 +48,11 @@
   <Button on:click={() => dispatch('add')}>New Meetup</Button>
 </section>
 
+{#if filterSet.length === 0}
+  <div class="posisi-error">
+    <p>Data not found!</p>
+  </div>
+{/if}
 <section id="meetups">
   {#each filterSet as meet (meet.id)}
     <div transition:scale|local animate:flip={{ duration: 300 }}>
