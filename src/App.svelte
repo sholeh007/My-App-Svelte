@@ -29,7 +29,7 @@
 		}
 		setTimeout(() => {
 			isLoading = false;
-			meetup.getMeetup(loadDataMeetup);
+			meetup.getMeetup(loadDataMeetup.reverse());
 		}, 1000);
 	});
 

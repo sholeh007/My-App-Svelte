@@ -35,6 +35,28 @@ const dataApi = {
     } catch (err) {
       throw new Error(err);
     }
+  },
+  deleteData: async (url, setting) => {
+    try {
+      const removeData = await fetch(url, setting);
+
+      if (!removeData.ok) {
+        throw new Error('delete data failed!');
+      };
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+  isFavoriteData: async (url, setting) => {
+    try {
+      const favData = await fetch(url, setting);
+
+      if (!favData.ok) {
+        throw new Error('something wrong!');
+      };
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }
 

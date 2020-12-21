@@ -1,6 +1,7 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import meetup from "../data/store.js";
+  import dataApi from "../api/meetApi.js";
   import Badge from "../UI/Badge.svelte";
   import Button from "../UI/Button.svelte";
 
@@ -17,7 +18,16 @@
     dispatch("showDetail", id);
   };
 
-  const handleFavorite = () => {
+  const handleFavorite = async () => {
+    const url = `https://app-svelte-test-default-rtdb.firebaseio.com/meets/${id}.json`;
+    const setting = {
+      method: "PATCH",
+      header: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isFavorite: !isFavorite }),
+    };
+    await dataApi.isFavoriteData(url, setting);
     meetup.toggleFavorite(id);
   };
 
@@ -25,8 +35,13 @@
     dispatch("editMeet", id);
   };
 
-  const deleteMeet = () => {
+  const deleteMeet = async () => {
     if (confirm("Are you sure?")) {
+      const url = `https://app-svelte-test-default-rtdb.firebaseio.com/meets/${id}.json`;
+      const setting = {
+        method: "DELETE",
+      };
+      await dataApi.deleteData(url, setting);
       return meetup.removeMeetup(id);
     }
     return;
