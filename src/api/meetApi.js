@@ -24,6 +24,17 @@ const dataApi = {
     } catch (err) {
       throw new Error(err);
     }
+  },
+  updateData: async (url, setting) => {
+    try {
+      const editData = await fetch(url, setting);
+
+      if (!editData.ok) {
+        throw new Error('update failed!');
+      };
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 }
 

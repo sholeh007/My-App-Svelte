@@ -49,6 +49,15 @@
       email,
     };
     if (id) {
+      const url = `https://app-svelte-test-default-rtdb.firebaseio.com/meets/${id}.json`;
+      const setting = {
+        method: "PATCH",
+        header: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newMeets),
+      };
+      await dataApi.updateData(url, setting);
       meetup.updateDataMeetup(id, newMeets);
     } else {
       const url =
