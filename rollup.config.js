@@ -2,13 +2,15 @@ import svelte from 'rollup-plugin-svelte';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
+import {
+	terser
+} from 'rollup-plugin-terser';
 
 const production = !process.env.ROLLUP_WATCH;
 
 function serve() {
 	let server;
-	
+
 	function toExit() {
 		if (server) server.kill(0);
 	}
@@ -33,7 +35,9 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/bundle.js'
+		file: 'public/build/bundle.js',
+		// properti supaya routify berjalan
+		inlineDynamicImports: true
 	},
 	plugins: [
 		svelte({
